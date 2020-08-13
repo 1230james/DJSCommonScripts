@@ -5,6 +5,13 @@ const log = (msg) => { // Console log w/ timestamp
     console.log(`[${moment().format("MM-DD-YYYY HH:mm:ss")}] ${msg}`);
 };
 
+/* 2020-08-13: WTF is this identation? I really need to clean this up in the future.
+Or maybe not, since most of this crap was just abstracting stuff for my puny little newfag brain back when I was first
+getting into programming, and now I don't need these abstractions.
+
+Frankly, I find them more annoying now.
+*/
+
 // ================================================
 
 // Send Message
@@ -49,7 +56,7 @@ module.exports.sendFile = function(message,filepath, logm) {
 module.exports.setRoles = function(member,newRoles,oldRoles) { //newRoles and oldRoles must be ARRAYS with role ids to add/remove respectively
     console.log("Retrieving discord roles...");
     let userRoles = {};
-    let rolesMap = member.roles;
+    let rolesMap = member.roles.cache;
     
     console.log("Filtering discord roles...");
     for (let [key, val] of rolesMap) { // This is for iterating Maps in JS. In this case, we're just spitting out all the keys into an array.
@@ -69,7 +76,7 @@ module.exports.setRoles = function(member,newRoles,oldRoles) { //newRoles and ol
     for (roleId in userRoles) {
 	if (userRoles[roleId]) userRolesArr.push(roleId);
     }
-    member.setRoles(userRolesArr);
+    member.roles.set(userRolesArr);
 }
 
 // Get Role ID
